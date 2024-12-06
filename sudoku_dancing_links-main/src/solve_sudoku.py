@@ -7,7 +7,11 @@ from .dancing_links import dlx
 
 import json
 
+unsolved_grid = []
+
 def solve_sudoku(grid: List[List[int]]) -> None:
+    unsolved_grid = grid;
+
     assert (
         len(grid) == 9
         and all((len(x) == 9 for x in grid))
@@ -69,7 +73,10 @@ def solve_sudoku(grid: List[List[int]]) -> None:
     # Solve
     i = 0
     for i, sol in enumerate(dlx(m), start=1):
-        temp_sol = sol
+        #pass;
+        sol_grid = [n + 1 for _, _, n in sorted([possibilities[i] for i in sol])]
+        sol_grid = list(zip(*[iter(sol_grid)] * 9))  # reshape (9,9)
+        temp_sol = sol_grid
         #if i == 2 and input("Find all? [Y|n] ").lower() == "n":
         #    break
         #print(f"\n*** Solution #{i} ***\n\n" + format_solution(sol))
@@ -80,10 +87,24 @@ def solve_sudoku(grid: List[List[int]]) -> None:
         data = []
         with open("goodSudoku.json", "r") as f:
             data = json.load(f)
+            print(data)
         with open("goodSudoku.json", "w") as f:
             print("Unique solution")
-            data.append(temp_sol)
+            data.append(unsolved_grid)
             json.dump(data, f)
+            print(data)
+
+        sdata = []
+        with open("goodSudokuSolution.json", "r") as f:
+            sdata = json.load(f)
+            print(sdata)
+        with open("goodSudokuSolution.json", "w") as f:
+            print("Unique solution")
+            sdata.append(temp_sol)
+            json.dump(sdata, f)
+            print(sdata)
+    else:
+        print("No solution or >1 solution")
 
 
 ##########################
