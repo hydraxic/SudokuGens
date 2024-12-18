@@ -10,9 +10,9 @@ def draw_x_sudoku_grid(c, grid, page_width, page_height, count, cell_size=30):
 
     # Determine the vertical position based on count
     if count % 2 == 0:  # Even count: top of the page
-        y_start = grid_height + (grid_height / 4)
-    else:  # Odd count: bottom of the page
         y_start = page_height - (grid_height / 4)
+    else:  # Odd count: bottom of the page
+        y_start = grid_height + (grid_height / 4)
 
     x_start = (page_width - grid_width) / 2
 
@@ -43,7 +43,7 @@ def draw_x_sudoku_grid(c, grid, page_width, page_height, count, cell_size=30):
         c.line(x_start, y_start - i * cell_size, x_start + 9 * cell_size, y_start - i * cell_size)
 
     # Draw the count number above the grid
-    count_x = x_start + grid_width / 2 - 10
+    count_x = x_start + grid_width / 2 - 2.5
     count_y = y_start + 20
     c.setFont("HanumanRegular", 12)
     c.drawString(count_x, count_y, f"{count + 1}")
@@ -54,6 +54,8 @@ def draw_x_sudoku_grid(c, grid, page_width, page_height, count, cell_size=30):
     c.setFillColorRGB(0.5, 0.5, 0.5)  # Light gray color for watermark
     c.drawString(watermark_x, watermark_y, "Made by HydroPuzzles")
     c.setFillColorRGB(0, 0, 0)  # Reset to black for further drawings
+
+    c.setFont("HanumanRegular", 14)
 
     # Add numbers to cells
     for row_idx, row in enumerate(grid):
@@ -68,7 +70,7 @@ pdfmetrics.registerFont(TTFont('HanumanRegular', 'Hanuman-Regular.ttf'))
 with open("/content/goodSudoku.json", "r") as f:
     puzzles = json.load(f)
 
-max = 5
+max = 250
 count = 0
 
 c = canvas.Canvas("/content/x_sudoku_sample.pdf", pagesize=letter)

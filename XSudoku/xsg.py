@@ -3,6 +3,7 @@
 import math
 import random
 from typing import List, Tuple
+import json
 
 class Extensions:
     @staticmethod
@@ -156,13 +157,19 @@ class XSudoku:
 # print sudoku
 #count = 1
 
-amt = 5
+amt = 10
+
+with open("/content/goodSudoku.json", "w") as f:
+    json.dump([], f)
+
+with open("/content/goodSudokuSolution.json", "w") as f:
+    json.dump([], f)
 
 for _ in range(amt):
 
-    with open("genSudoku.txt", "w") as f:
+    with open("/content/sudoku_dancing_links-main/genSudoku.txt", "w") as f:
 
-        sudoku = XSudoku(9, 45)
+        sudoku = XSudoku(9, 50)
         output_string = ""
         if sudoku.fill_values():
             for row in sudoku.mat:
@@ -170,6 +177,9 @@ for _ in range(amt):
                     output_string += str(i) + " "
                 output_string += "\n"
             f.write(output_string)
+
+    # run this file
+    #!python sudoku_dancing_links-main/main.py sudoku_dancing_links-main/genSudoku.txt
 
 #sudoku.found_solutions = []
 #print(sudoku.find_all_solutions(sudoku.mat))
@@ -186,7 +196,7 @@ for _ in range(amt):
             else:
                 print(i, end=" ")
             rount += 1
-        
+
         if count % 3 == 0 and count != 9:
             print("\n" + "-" * 25)
         else:
@@ -205,7 +215,7 @@ for _ in range(amt):
             else:
                 print(i, end=" ")
             rount += 1
-        
+
         if count % 3 == 0 and count != 9:
             print("\n" + "-" * 25)
         else:

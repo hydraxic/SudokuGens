@@ -1,2 +1,1 @@
-# XSudokuGen
- 
+# SudokuGen
